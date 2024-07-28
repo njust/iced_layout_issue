@@ -1,7 +1,8 @@
 use flexi_logger::{Duplicate, Logger};
 use iced::widget::{button, column, horizontal_space, scrollable, stack, text};
-use iced::{alignment, Background, Border, Color, Settings};
+use iced::{alignment, Background, Color, Settings};
 use iced::{
+    border,
     widget::{container, row},
     Element,
 };
@@ -16,7 +17,7 @@ pub fn main() -> iced::Result {
         .start()
         .unwrap();
 
-    iced::program("Card View Test", TestApp::update, TestApp::view)
+    iced::application("Card View Test", TestApp::update, TestApp::view)
         .settings(Settings {
             ..Default::default()
         })
@@ -53,7 +54,7 @@ impl TestApp {
             .spacing(20)
             .width(Length::Fill)
             .padding(20)
-            .align_items(Alignment::Center),
+            .align_x(Alignment::Center),
         )
         .into();
         scrollable(content).into()
@@ -79,8 +80,8 @@ fn card_view<'a>(title: &str, content: Element<'a, Message>) -> Element<'a, Mess
         column![
             row![text(title.to_string())
                 .size(18)
-                .horizontal_alignment(alignment::Horizontal::Center)
-                .vertical_alignment(alignment::Vertical::Top),]
+                .align_x(alignment::Horizontal::Center)
+                .align_y(alignment::Vertical::Top),]
             .width(Length::Fill)
             .spacing(8),
             content
@@ -89,7 +90,7 @@ fn card_view<'a>(title: &str, content: Element<'a, Message>) -> Element<'a, Mess
     )
     .style(|_| container::Style {
         background: Some(Background::Color(Color::from_rgb8(246, 247, 250))),
-        border: Border::rounded(8),
+        border: border::rounded(8),
         ..Default::default()
     })
     .padding(20)
